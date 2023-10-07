@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lives ON</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body onLoad="carrego()">
+  <button id="att" onclick="att()">Atualizar</button>
+
+  <div class="livesprofile">
+    <a href="https://www.twitch.tv/jonvlogs">
+      <img id="jonvlogs" class="profile" src="https://static-cdn.jtvnw.net/jtv_user_pictures/00e7ebf9-89b9-41e1-b2bc-263b0ce805d0-profile_image-70x70.png" alt=""></a>
+
+    <a href="https://www.twitch.tv/diegogelio_">
+      <img id="diegogelio" class="profile" src="https://static-cdn.jtvnw.net/jtv_user_pictures/2211765a-e752-4812-9b53-84af4b9f9d31-profile_image-70x70.png" alt=""></a>
+
+    <a href="https://www.twitch.tv/tiliaoficial">
+      <img id="tiliaoficial" class="profile" src="https://static-cdn.jtvnw.net/jtv_user_pictures/236567d4-b236-47e6-aa2f-81e2d0af76c3-profile_image-70x70.png" alt=""></a>
+
+    <a href="https://www.twitch.tv/maumauzk_ofc">
+      <img id="maumauzk" class="profile" src="https://static-cdn.jtvnw.net/jtv_user_pictures/829be78d-edcf-4c69-a30a-d6d73003744f-profile_image-70x70.png" alt=""></a>
+
+    <a href="https://www.twitch.tv/cabritoz">
+      <img id="cabritoz" class="profile" src="https://static-cdn.jtvnw.net/jtv_user_pictures/e536cf88-fc55-4438-941b-b228ab82166d-profile_image-70x70.png" alt=""></a>
+
+
+  </div>
+  <div id="twitch-embed"></div>
+
+  <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  <script type="text/javascript">
+    const lives = [];
+
+
+    let jonvlogs = new Twitch.Embed("twitch-embed", {
+      channel: "jonvlogs",
+      autoplay: false,
+    });
+
+    let diegogelio = new Twitch.Embed("twitch-embed", {
+      channel: "diegogelio_",
+      autoplay: false,
+    });
+
+    let tiliaoficial = new Twitch.Embed("twitch-embed", {
+      channel: "tiliaoficial",
+      autoplay: false,
+    });
+
+    let maumauzk = new Twitch.Embed("twitch-embed", {
+      channel: "maumauzk_ofc",
+      autoplay: false,
+    });
+
+    let cabritoz = new Twitch.Embed("twitch-embed", {
+      channel: "cabritoz",
+      autoplay: false,
+    });
+
+    function att() {
+      lives.push(jonvlogs._player._playerState.duration);
+      lives.push(diegogelio._player._playerState.duration);
+      lives.push(tiliaoficial._player._playerState.duration);
+      lives.push(maumauzk._player._playerState.duration);
+      lives.push(cabritoz._player._playerState.duration);
+      const imgs = document.querySelectorAll('img')
+      imgs.forEach((item, index) => {
+        console.log(item.id, lives[index])
+        if (lives[index] === 0) {
+          item.style.borderColor = 'red'
+        } else {
+          item.style.borderColor = 'green'
+        }
+      })
+    }
+
+    function carrego() {
+      setTimeout(function () {
+        document.querySelector('button').style.display = 'flex'
+        att()
+      }, 2000);
+    }
+  </script>
+
+</body>
+
+</html>
