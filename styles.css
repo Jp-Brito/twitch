@@ -88,3 +88,28 @@ button:hover {
   display: none;
   background-color: red;
 }
+
+
+:root {
+  --hue: 210;
+  --size: 100px;
+  --border: 10px;
+  --speed: 1s;
+  --blur: var(--border);
+}
+
+.loader {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  border: 4.5px solid #0000;
+  border-radius: 50%;
+  border-color: #272727 #0000;
+  animation: loader-e04l1k 1s infinite linear;
+}
+
+@keyframes loader-e04l1k {
+  100% {
+    transform: rotate(1turn);
+  }
+}
