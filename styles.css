@@ -33,7 +33,29 @@ img {
   border: 3px solid rgb(88, 88, 88);
 }
 
+a {
+  position: relative;
+}
 
+a::before {
+  content: '';
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  bottom: 5px;
+  left: 10px;
+}
+
+.twitch::before {
+  background-image: url('assets/twitch.ico');
+}
+
+.kick::before {
+  height: 15px;
+  width: 15px;
+  background-image: url('assets/kick.ico');
+  background-color: rgb(43, 42, 42);
+}
 
 /* CSS */
 button {
