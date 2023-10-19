@@ -4,7 +4,7 @@ const lives = [
   ['tiliaoficial', '236567d4-b236-47e6-aa2f-81e2d0af76c3'],
   ['meikodrj', '9581207b-7255-4616-bfd0-4471a2e9de9e'],
   ['maumauzk_ofc', '829be78d-edcf-4c69-a30a-d6d73003744f', 'maumauzk01'],
-  ['cabritoz', 'e536cf88-fc55-4438-941b-b228ab82166d', 'Chief117']
+  ['cabritoz', 'e536cf88-fc55-4438-941b-b228ab82166d', 'cabritoz']
 ];
 const tamanholist = lives.length
 
