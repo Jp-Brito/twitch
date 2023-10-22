@@ -3,32 +3,14 @@ const lives = [
   ['diegogelio_', '2211765a-e752-4812-9b53-84af4b9f9d31'],
   ['tiliaoficial', '236567d4-b236-47e6-aa2f-81e2d0af76c3'],
   ['meikodrj', '9581207b-7255-4616-bfd0-4471a2e9de9e'],
-  ['maumauzk_ofc', '829be78d-edcf-4c69-a30a-d6d73003744f', 'maumauzk01'],
-  ['cabritoz', 'e536cf88-fc55-4438-941b-b228ab82166d', 'cabritoz']
+  ['cabritoz', 'e536cf88-fc55-4438-941b-b228ab82166d', 'cabritoz'],
+  ['maumauzk_ofc', '829be78d-edcf-4c69-a30a-d6d73003744f', 'maumauzk01']
 ];
-const tamanholist = lives.length
+const livesStats = [];
 
 const livescontainer = document.getElementById("livesprofile");
-async function createLives() {
-  lives.forEach((item) => {
-
-    if (item[2]) {
-      fetch(`https://kick.com/api/v2/channels/${item[2]}`)
-        .then(response => response.json())
-        .then(data => {
-          lives.push(data)
-        })
-    } else {
-
-      let liveEmbed = new Twitch.Embed("twitch-embed", {
-        channel: item[0],
-        autoplay: false,
-        layout: 'video'
-      });
-      lives.push(liveEmbed)
-    }
-
-
+function createLives() {
+  lives.forEach(async (item) => {
 
     const ancora = document.createElement('a')
     if (item[2]) {
@@ -46,30 +28,44 @@ async function createLives() {
     img.setAttribute('id', item[0])
     img.setAttribute('src', `https://static-cdn.jtvnw.net/jtv_user_pictures/${item[1]}-profile_image-70x70.png`);
     ancora.appendChild(img);
+
+    if (item[2]) {
+      let livekick = await fetch(`https://kick.com/api/v2/channels/${item[2]}`)
+        .then(response => response.json())
+        .then(data => {
+          livesStats.push(data);
+        });
+    } else {
+
+      let liveEmbed = new Twitch.Embed("twitch-embed", {
+        channel: item[0],
+        autoplay: false,
+        layout: 'video'
+      });
+      livesStats.push(liveEmbed);
+    }
   })
 }
 function atualizarLives() {
   location.reload();
 }
-function IsOnline() {
-  const imgs = document.querySelectorAll('.profile')
-  imgs.forEach((item, index) => {
-    let calc = index + tamanholist
-    if (lives[index][2]) {
-      if (lives[calc]["livestream"]) {
-        item.style.borderColor = '#00ff00'
-      } else {
-        item.style.borderColor = '#ff0000'
-      }
 
+function IsOnline() {
+  lives.forEach((item, index) => {
+    let img = document.getElementById(item[0])
+    img.style.borderColor = '#ff0000'
+    if (item[2]) {
+      if (livesStats[index]["livestream"]) {
+        img.style.borderColor = '#00ff00'
+      }
     } else {
-      if (lives[calc]._player._playerState.duration === Infinity) {
-        item.style.borderColor = '#00ff00'
-      } else {
-        item.style.borderColor = '#ff0000'
+      if (livesStats[index]._player._playerState.duration) {
+        let twitchOn = livesStats[index]._player._playerState.duration
+        if (twitchOn && twitchOn === Infinity) {
+          img.style.borderColor = '#00ff00'
+        }
       }
     }
-
   })
 }
 
@@ -77,7 +73,7 @@ function carrego() {
   setTimeout(function () {
     document.querySelector('button').style.display = 'flex'
     document.getElementById('loader').style.display = 'none'
-    document.querySelector('p').style.display = 'none'
+    document.querySelector('strong').style.display = 'none'
     IsOnline()
   }, 2000);
 }
